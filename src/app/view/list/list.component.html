@@ -1,0 +1,10 @@
+<ul>
+    <li *ngFor="let m of media; let i = index;">
+        <img #image [src]="'/data/' + m + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
+        <div class="caption" *ngIf="!image.hidden">
+            <span>{{i}}: {{dates[i]}}</span>
+            <span class="fill-remaining-space"></span>
+            <span>{{m}}</span>
+        </div>
+    </li>
+</ul>

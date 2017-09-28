@@ -1,0 +1,26 @@
+<div class="card">
+    <h2 class="title">{{title}}</h2>
+    <p *ngIf="timeout"><span class="error">Session abgelaufen</span></p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value, form.valid)">
+        <!--
+        <p>
+            <span class="hint" *ngIf="!form.value['key']">
+                {{formHints.key}}
+            </span>
+        </p>
+        -->
+        <input class="input"
+               type="password"
+               formControlName="key"
+               [placeholder]="formLabels.key"/>
+        <p>
+            <span class="error" *ngIf="formErrors.key">
+                {{ formErrors.key }}
+            </span>
+        </p>
+        <button class="button" [disabled]="!form.valid">Login</button>
+        <br>
+        <button class="simple-button" (click)="cancel($event)">Cancel</button>
+    </form>
+
+</div>
