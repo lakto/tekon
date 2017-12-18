@@ -44,3 +44,4 @@ Thumbs.db
 
 # Data and media files
 src/data/
+package-lock.json
