@@ -15,10 +15,20 @@ import {LoginService} from './services/login.service';
 import {ApiService} from './services/api.service';
 import {HttpModule} from '@angular/http';
 import { FormatDatePipe } from './view/other/date.pipe';
+import { KeyPipe } from './view/other/key.pipe';
+import { ErrorComponent } from './view/error/error.component';
+
+import {AppMaterialModule} from './app.material-module';
+import { HeaderComponent } from './view/header/header.component';
+import { FooterComponent } from './view/footer/footer.component';
 
 const appRoutes: Routes = [
     {
         path: '',
+        component: ListComponent
+    },
+    {
+        path: 'admin',
         component: ListComponent
     },
     {
@@ -28,6 +38,15 @@ const appRoutes: Routes = [
     {
         path: 'upload',
         component: UploadComponent
+    },
+    {
+        path: 'image/:id',
+        component: MediaComponent
+    },
+    {
+        path: '**',
+        component: ErrorComponent,
+        data: {status: 404}
     }
 ];
 
@@ -40,7 +59,11 @@ const appRoutes: Routes = [
         AboutComponent,
         MediaComponent,
         ImageDirective,
-        FormatDatePipe
+        FormatDatePipe,
+        KeyPipe,
+        ErrorComponent,
+        HeaderComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -48,7 +71,8 @@ const appRoutes: Routes = [
         HttpModule,
         RouterModule.forRoot(appRoutes),
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AppMaterialModule
     ],
     providers: [
         ApiService,

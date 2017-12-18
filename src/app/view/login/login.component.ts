@@ -23,22 +23,18 @@ export class LoginComponent implements OnInit {
         'key': 'Password'
     };
 
-    formHints = {
-        'key': 'Password.'
-    };
-
     formErrors = {
-        'key': ''
+        'key': 'The password is wrong'
     };
 
     validationMessages = {
         'key': {
-            'required': 'The password is wrong'
+            'required': 'The password is required'
         }
     };
 
     // title = 'Forbidden';
-    title = 'Tekon login';
+    title = 'Login to your TEKON app';
 
     session: Session = new Session();
 
@@ -72,10 +68,6 @@ export class LoginComponent implements OnInit {
                     this.error = error;
                 }
             );
-    }
-
-    buildForm() {
-
     }
 
     onValueChanged(data?: any) {
@@ -122,7 +114,7 @@ export class LoginComponent implements OnInit {
         const newKey = Md5.hashStr(value.key);
 
         if (newKey === this.users.kader) {
-            sessionStorage.setItem('access', 'kader');
+            sessionStorage.setItem('access', 'true');
             window.location.reload();
         } else {
             // access denied

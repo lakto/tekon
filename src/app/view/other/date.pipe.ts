@@ -1,50 +1,50 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {AppMixins} from '../../app.mixins';
 
 @Pipe({
   name: 'formatDate'
 })
 export class FormatDatePipe implements PipeTransform {
 
-    transform(value: number, format?: string): any {
-        console.log(value);
-        console.log(format);
+    transform(date: number, format?: string): any {
 
-        let date = new Date(value * 1000).toString();
+        // temp date
+        const tmpDate: Date = new Date(date);
 
-        console.log(date);
+        // return value
+        let value: string;
 
-        const dd = date.substr(8, 2);
-        const mm = date.substr(4, 3);
-        const yyyy = date.substr(11, 4);
+//        console.log(date);
+
+        const dd = AppMixins.leadingZero(tmpDate.getDate());
+        const mm = AppMixins.leadingZero(tmpDate.getMonth() + 1);
+        const yyyy = tmpDate.getFullYear();
 
         if (format !== undefined) {
             switch (format) {
                 case 'wd':
                     // weekday
-                    date = date.substr(0, 3);
+                    value = JSON.stringify(tmpDate.getDay());
                     break;
                 case 'dd':
                     // day
-                    date = date.substr(8, 2);
+                    value = JSON.stringify(tmpDate.getDate());
                     break;
                 case 'mm':
                     // month
-                    date = date.substr(4, 3);
+                    value = JSON.stringify(tmpDate.getMonth());
                     break;
                 case 'yyyy':
                     // year
-                    date = date.substr(11, 4);
-                    break;
-                case 'yyyy-mm-dd':
-                    date = yyyy + '-' + mm + '-' + dd;
+                    value = JSON.stringify(tmpDate.getFullYear());
                     break;
                 default:
                   // yyyy-mm-dd
-                  date = yyyy + '-' + mm + '-' + dd;
+                  value = yyyy + '-' + mm + '-' + dd;
             }
         }
 
-        return date;
+        return value;
     }
 
 }

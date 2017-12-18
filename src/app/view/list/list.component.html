@@ -1,10 +1,45 @@
-<ul>
-    <li *ngFor="let m of media; let i = index;">
-        <img #image [src]="'/data/' + m + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
-        <div class="caption" *ngIf="!image.hidden">
-            <span>{{i}}: {{dates[i]}}</span>
-            <span class="fill-remaining-space"></span>
-            <span>{{m}}</span>
-        </div>
-    </li>
-</ul>
+<button (click)="toggleView()">Preview</button>
+
+<div *ngIf="!admin; else adminView">
+
+    <!-- Thumbnail -->
+    <section id="thumbnails">
+        <article *ngFor="let item of list; let i = index; let first = first; let Last = last;" (click)="toggle(item.id, i)" [class.active]="activeEle === i">
+            <span class="thumbnail" data-position="left center">
+                <img [src]="'/data/' + item.id + '.jpg'" /> <!--(error)="image.hidden = true" [hidden]="image?.hidden"/>-->
+            </span>
+            <div *ngIf="!image?.hidden">
+                <h2>{{item.id}}</h2>
+                <p>{{i}}: {{item.start}} &ndash; {{item.end}}</p>
+            </div>
+        </article>
+    </section>
+
+
+<!--
+    <ul>
+        <li *ngFor="let item of list; let i = index; let first = first; let Last = last;">
+            <div *ngIf="!first">
+                <img #image [src]="'/data/' + item.id + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
+                <div class="caption" *ngIf="!image.hidden">
+                    <span> </span>
+                    <span class="fill-remaining-space"></span>
+                    <span>{{item.id}}</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    -->
+</div>
+
+<ng-template #adminView>
+    <ul class="admin-list">
+        <li *ngFor="let item of list; let i = index;" class="list-item">
+            <h4 class="head-line" [title]="item.end | formatDate: 'mm-dd' + '&mdash;' + item.start | formatDate: 'yyyy-mm-dd'"># {{item.id}}</h4>
+            <div class="square-box" (click)="open(item.id)">
+                <img #image [src]="'/data/' + item.id + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
+                <span class="upload" *ngIf="image.hidden">{{item.id}}</span>
+            </div>
+        </li>
+    </ul>
+</ng-template>

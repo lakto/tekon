@@ -1,3 +1,24 @@
-<p>
-  media works!
-</p>
+<div id="viewer">
+    <div class="inner">
+        <div class="nav-next"></div>
+        <div class="nav-previous"></div>
+        <div class="toggle"></div>
+    </div>
+    <div class="slide active">
+        <div class="caption">
+            <h2># {{id}}</h2>
+<!--            <p>{{i}}: {{item.start}} &ndash; {{item.end}}</p> -->
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+        <div class="image">
+             <!--style="background: url('/data/{{id}}.jpg');"-->
+            <img #image [src]="'/data/' + id + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
+            <app-error *ngIf="image.hidden"></app-error>
+        </div>
+    </div>
+</div>
+
+<!--
+<img #image [src]="'/data/' + id + '.jpg'" (error)="image.hidden = true" [hidden]="image.hidden">
+
+<app-error *ngIf="image.hidden"></app-error>
+-->

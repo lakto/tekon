@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div id="main">
+    <app-header></app-header>
+
+    <app-list (toggleItem)="toggleDetail($event, $event)"></app-list>
+
+    <app-footer></app-footer>
+</div>
+<app-media [id]="id"></app-media>
